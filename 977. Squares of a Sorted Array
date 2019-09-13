@@ -1,0 +1,73 @@
+public class Solution {
+    public int[] SortedSquares(int[] A) {
+                
+        if(A.Length==0)
+            return A;
+        
+        if(A[0]>0)
+        {
+            return takeSquare(A);
+        }
+        
+        if(A[A.Length-1]<=0)
+        {
+            return NtakeSquare(A);
+        }
+        
+        return takeSquare(NsortAbs(A));       
+    }    
+    public int[] takeSquare(int[] A)
+    {
+        for(int i=0;i<A.Length;i++)
+        {
+            A[i]*=A[i];
+        }
+        return A;
+    }
+    public int[] NtakeSquare(int[] A)
+    {
+        int[] b=new int[A.Length];
+        for(int i=0;i<A.Length;i++)
+        {
+            b[A.Length-1-i]=A[i]*A[i];
+        }
+        return b;
+    }    
+    public int[] sortAbs(int[] A)
+    {
+        return A.OrderBy(c=> Math.Abs(c)).ToArray();
+    }    
+    public int[] NsortAbs(int[] A)
+    {        
+        int lo=0;
+        int hi=A.Length-1;
+        int nHi=hi;
+        int[] ne=new int[hi+1];
+        while(lo<hi)
+        {
+            if(A[lo]<0)
+            {
+                while(lo<hi && A[lo]*-1<A[hi])
+                {
+                    ne[nHi]=A[hi];
+                    hi--;
+                    nHi--;                
+                }                
+                ne[nHi]=A[lo]*-1;
+                lo++;
+                nHi--;         
+                
+            }else{
+                break;
+            }
+        }
+        
+        while(nHi>=0)
+        {            
+            ne[nHi]=A[hi];
+            hi--;
+            nHi--;
+        }        
+        return ne;
+    }
+}
