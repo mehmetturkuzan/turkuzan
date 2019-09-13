@@ -1,0 +1,27 @@
+public class Solution {
+    public bool CanThreePartsEqualSum(int[] A) {
+        
+        int sum=0;
+        foreach(int i in A)
+            sum+=i;
+        
+        if(sum%3!=0)
+            return false;
+        
+        int part=sum/3;
+        int count=0;
+        int temp=0;
+        
+        foreach(int s in A)
+        {
+            temp+=s;
+            if(temp==part)
+            {
+                count++;
+                temp=0;
+            }
+        }
+        
+        return count==3?true:false;
+    }
+}
