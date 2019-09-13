@@ -1,0 +1,30 @@
+public class Solution {
+    public bool IsMonotonic(int[] A) {
+        
+        if(A.Length<=1)
+            return true;
+        
+        bool increase=false;
+        bool decrease=false;
+        int s=A[0];
+        for(int i=0;i<A.Length;i++)
+        {
+            if(s<A[i])
+                increase=true;
+            
+            if(s>A[i])
+                decrease=true;
+            
+            
+            if(increase&&decrease)
+                return false;
+            
+            s=A[i];
+            
+            
+            
+        }
+        return true;
+        
+    }
+}
