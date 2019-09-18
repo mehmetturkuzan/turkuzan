@@ -1,0 +1,47 @@
+public class Solution {
+    public string[] FindRestaurant(string[] list1, string[] list2) {
+        int s1=list1.Length,s2=list2.Length;
+        if(s1==1)
+            return list1;
+        if(s2==1)
+            return list2;
+        
+        
+        //Array.Sort(list1);
+        //Array.Sort(list2);
+        Dictionary<int,List<string>> sl=new Dictionary<int,List<string>>();
+        int m=int.MaxValue;
+            for(int i=0;i<s1;i++)
+            {
+                if(i>m)
+                    break;
+                for(int j=0;j<s2;j++)
+                {
+                    if(j>m)
+                        break;
+                    if(list1[i]==list2[j])
+                    {
+                        if(m>=i+j)
+                        {
+                            if(sl.ContainsKey(i+j))
+                                sl[i+j].Add(list1[i]);
+                            else
+                                sl.Add(i+j,new List<string> {list1[i]});
+                            m=i+j;
+                        }
+                        
+                        break; // no need to continue with this word
+                    }
+                        
+                }
+            }
+        if(sl.Count==1)
+            return sl.ElementAt(0).Value.ToArray();
+        
+        var a=sl.OrderBy(c=>c.Key);
+        
+        return a.ElementAt(0).Value.ToArray();
+        
+        
+    }
+}
