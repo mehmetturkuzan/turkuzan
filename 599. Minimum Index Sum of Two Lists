@@ -1,47 +1,43 @@
 public class Solution {
-    public string[] FindRestaurant(string[] list1, string[] list2) {
-        int s1=list1.Length,s2=list2.Length;
-        if(s1==1)
-            return list1;
-        if(s2==1)
-            return list2;
-        
-        
-        //Array.Sort(list1);
-        //Array.Sort(list2);
-        Dictionary<int,List<string>> sl=new Dictionary<int,List<string>>();
-        int m=int.MaxValue;
-            for(int i=0;i<s1;i++)
+public string[] FindRestaurant(string[] list1, string[] list2) {
+int s1=list1.Length,s2=list2.Length;
+if(s1==1)
+return list1;
+if(s2==1)
+return list2;
+
+    Dictionary<string,int> sl=new Dictionary<string,int>();
+    List<string> rs=new List<string>();
+    
+    for(int i=0;i<s1;i++)
+        sl.Add(list1[i],i);
+
+    int m=int.MaxValue;
+    for(int i=0;i<s2;i++)
+    {
+        if(i>m)
+            break;
+
+        if(sl.ContainsKey(list2[i]))
+        {
+            if(i+sl[list2[i]]<m)
             {
-                if(i>m)
-                    break;
-                for(int j=0;j<s2;j++)
+                if(rs.Count>0)
+                    rs.Clear();
+                m=i+sl[list2[i]];
+                rs.Add(list2[i]);
+            }else{
+                if(i+sl[list2[i]]==m)
                 {
-                    if(j>m)
-                        break;
-                    if(list1[i]==list2[j])
-                    {
-                        if(m>=i+j)
-                        {
-                            if(sl.ContainsKey(i+j))
-                                sl[i+j].Add(list1[i]);
-                            else
-                                sl.Add(i+j,new List<string> {list1[i]});
-                            m=i+j;
-                        }
-                        
-                        break; // no need to continue with this word
-                    }
-                        
+                    rs.Add(list2[i]);
                 }
             }
-        if(sl.Count==1)
-            return sl.ElementAt(0).Value.ToArray();
-        
-        var a=sl.OrderBy(c=>c.Key);
-        
-        return a.ElementAt(0).Value.ToArray();
-        
-        
+        }
+
     }
+
+    return rs.ToArray();
+
+}
+
 }
