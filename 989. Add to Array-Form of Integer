@@ -1,0 +1,34 @@
+public class Solution {
+    public IList<int> AddToArrayForm(int[] A, int K) {
+        IList<int> res=new List<int>();
+        int i=0,r=0;
+        while(K>0 || i<A.Length || r!=0)
+        {
+            int b=(K%10);
+            K-=b;
+            K/=10;
+            
+            b+=r;r=0;
+            
+            if(i<A.Length)
+            {
+                 b+=A[A.Length-1-i];
+                i++;
+            }
+           
+            
+            r=b/10;
+            b=b%10;
+            res.Add(b);
+        }
+        
+        for(int j=0;j<res.Count/2;j++)
+        {
+            int ss=res[j];
+            res[j]=res[res.Count-1-j];
+            res[res.Count-1-j]=ss;
+        }
+        return res;
+        
+    }
+}
