@@ -1,0 +1,40 @@
+public class Solution {
+    public IList<IList<int>> LargeGroupPositions(string S) {
+        IList<IList<int>> res=new List<IList<int>>();
+        if(S.Length<3)
+            return res;
+        char c =S[0];
+        IList<int> re=new List<int>();
+        re.Add(0);
+        for(int i=0;i<S.Length;i++)
+        {
+            if(c==S[i])
+            {
+                if(re.Count==2)
+                    re.RemoveAt(1);
+                
+                re.Add(i);
+            }else
+            {
+                if(re.Count==2 && re[1]-re[0]>=2)
+                {    
+                    res.Add(re);                
+                     
+                }
+                
+                re=new List<int>();
+                
+                c=S[i];
+                re.Add(i);
+            }
+        }
+        
+        if(re.Count==2 && re[1]-re[0]>=2)
+        {
+            res.Add(re);
+        }
+       
+        return res;
+        
+    }
+}
