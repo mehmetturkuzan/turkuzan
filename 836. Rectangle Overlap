@@ -1,0 +1,17 @@
+public class Solution {
+    public bool IsRectangleOverlap(int[] rec1, int[] rec2) {
+        
+        
+        int xl=Math.Max(rec2[0],rec1[0]);
+        int yl=Math.Max(rec2[1],rec1[1]);
+        int xh=Math.Min(rec2[2],rec1[2]);
+        int yh=Math.Min(rec2[3],rec1[3]);
+        
+        if(xl<xh && yl<yh)
+            return true;
+        
+        return false;
+        
+    }
+    
+}
